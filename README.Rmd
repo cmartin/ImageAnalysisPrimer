@@ -1,6 +1,6 @@
 ---
 title: "A primer to close-range image analysis with R"
-author: "Charles Martin"
+author: "Charles A. Martin"
 output: 
   html_document:
     highlight: haddock
@@ -9,6 +9,8 @@ output:
     toc: yes
 ---
 Updated on 2015-10-15
+
+For any questions, please email me at charles.martin1@uqtr.ca
 
 ##1. Install the required packages
 

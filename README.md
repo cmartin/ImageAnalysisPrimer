@@ -1,6 +1,8 @@
 # A primer to close-range image analysis with R
-Charles Martin  
+Charles A. Martin  
 Updated on 2015-10-15
+
+For any questions, please email me at charles.martin1@uqtr.ca
 
 ##1. Install the required packages
 
