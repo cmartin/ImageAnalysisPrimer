@@ -68,7 +68,8 @@ should, based on strong hypotheses, decide _a priori_ which color channels to us
   #### STEP 1 : Load or calculate all image layers we need to work with.
   #############################################################################
   
-  # Load 3 rasters from the target image, one for red, one for green and one for the blue channel
+  # Load 3 rasters from the target image, 
+  # one for red, one for green and one for the blue channel
   R <- raster(path, band = 1)
   G <- raster(path, band = 2)
   B <- raster(path, band = 3)
