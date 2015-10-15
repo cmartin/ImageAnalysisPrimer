@@ -1,6 +1,6 @@
 # A primer to close-range image analysis with R
 Charles Martin  
-Updated on 2015-10-14
+Updated on 2015-10-15
 
 ##1. Install the required packages
 
@@ -68,19 +68,19 @@ should, based on strong hypotheses, decide _a priori_ which color channels to us
   
   # Combine the RGB channels to create a grayscale image
   RGB <- brick(R,G,B) 
-  r.grey <- mean(RGB)
+  r_grey <- mean(RGB)
   
   # Convert RGB bands to HSV channels
   HSV <- rgb2hsv(getValues(R),getValues(G),getValues(B))  	
-  r.H <- r.S <- r.V <- raster(ncols = ncol(R), nrows = nrow(R))
-  extent(r.H) <- extent(r.S) <- extent(r.V) <- extent(R)
-  values(r.H) <- HSV[1,]
-  values(r.S) <- HSV[2,]
-  values(r.V) <- HSV[3,]  
+  r_H <- r_S <- r_V <- raster(ncols = ncol(R), nrows = nrow(R))
+  extent(r_H) <- extent(r_S) <- extent(r_V) <- extent(R)
+  values(r_H) <- HSV[1,]
+  values(r_S) <- HSV[2,]
+  values(r_V) <- HSV[3,]  
   
   # Create a binary image seperating vegetation from the background
   # This functions needs the whole 3-color stack
-  r.green <- getBinaryVegetationMask(RGB) 
+  r_green <- getBinaryVegetationMask(RGB) 
   
   #############################################################################
   #### STEP 2 : Calculate neighbor matrices and histograms on each layer. 
@@ -89,84 +89,84 @@ should, based on strong hypotheses, decide _a priori_ which color channels to us
   
   # On the four channels, find either right (1), diagonal (2) or below (3) 
   # neighbors for histogram calculations
-  v.grey.1 <- getImagePixels(r.grey, side = 1)
-  v.H.1 <- getImagePixels(r.H, side = 1)
-  v.S.1 <- getImagePixels(r.S, side = 1)
-  v.V.1 <- getImagePixels(r.V, side = 1)
+  v_grey_1 <- getImagePixels(r_grey, side = 1)
+  v_H_1 <- getImagePixels(r_H, side = 1)
+  v_S_1 <- getImagePixels(r_S, side = 1)
+  v_V_1 <- getImagePixels(r_V, side = 1)
   
-  v.grey.2 <- getImagePixels(r.grey, side = 2)
-  v.H.2 <- getImagePixels(r.H, side = 2)
-  v.S.2 <- getImagePixels(r.S, side = 2)
-  v.V.2 <- getImagePixels(r.V, side = 2)
+  v_grey_2 <- getImagePixels(r_grey, side = 2)
+  v_H_2 <- getImagePixels(r_H, side = 2)
+  v_S_2 <- getImagePixels(r_S, side = 2)
+  v_V_2 <- getImagePixels(r_V, side = 2)
   
-  v.grey.3 <- getImagePixels(r.grey, side = 3)
-  v.H.3 <- getImagePixels(r.H, side = 3)
-  v.S.3 <- getImagePixels(r.S, side = 3)
-  v.V.3 <- getImagePixels(r.V, side = 3)
+  v_grey_3 <- getImagePixels(r_grey, side = 3)
+  v_H_3 <- getImagePixels(r_H, side = 3)
+  v_S_3 <- getImagePixels(r_S, side = 3)
+  v_V_3 <- getImagePixels(r_V, side = 3)
   
   # Calculate histograms from neighbor vectors
   nbins <- 15
   
-   prob.grey.1 <- calculateHisto(
-     reference_vector = v.grey.1$reference_vector,
-     neighbour_vector = v.grey.1$neighbour_vector,
+   prob_grey_1 <- calculateHisto(
+     reference_vector = v_grey_1$reference_vector,
+     neighbour_vector = v_grey_1$neighbour_vector,
      nbins = nbins
   )
-  prob.H.1 <- calculateHisto(
-    reference_vector = v.H.1$reference_vector,
-    neighbour_vector = v.H.1$neighbour_vector,
+  prob_H_1 <- calculateHisto(
+    reference_vector = v_H_1$reference_vector,
+    neighbour_vector = v_H_1$neighbour_vector,
     nbins = nbins
   )
-  prob.S.1 <- calculateHisto(
-    reference_vector = v.S.1$reference_vector,
-    neighbour_vector = v.S.1$neighbour_vector,
+  prob_S_1 <- calculateHisto(
+    reference_vector = v_S_1$reference_vector,
+    neighbour_vector = v_S_1$neighbour_vector,
     nbins = nbins
   )
-  prob.V.1 <- calculateHisto(
-    reference_vector = v.V.1$reference_vector,
-    neighbour_vector = v.V.1$neighbour_vector,
-    nbins = nbins
-  )
-  
-  prob.grey.2 <- calculateHisto(
-    reference_vector = v.grey.2$reference_vector,
-    neighbour_vector = v.grey.2$neighbour_vector,
-    nbins = nbins
-  )
-  prob.H.2 <- calculateHisto(
-    reference_vector = v.H.2$reference_vector,
-    neighbour_vector = v.H.2$neighbour_vector,
-    nbins = nbins
-  )
-  prob.S.2 <- calculateHisto(
-    reference_vector = v.S.2$reference_vector,
-    neighbour_vector = v.S.2$neighbour_vector,
-    nbins = nbins
-  )
-  prob.V.2 <- calculateHisto(
-    reference_vector = v.V.2$reference_vector,
-    neighbour_vector = v.V.2$neighbour_vector,
+  prob_V_1 <- calculateHisto(
+    reference_vector = v_V_1$reference_vector,
+    neighbour_vector = v_V_1$neighbour_vector,
     nbins = nbins
   )
   
-  prob.grey.3 <- calculateHisto(
-    reference_vector = v.grey.3$reference_vector,
-    neighbour_vector = v.grey.3$neighbour_vector,
+  prob_grey_2 <- calculateHisto(
+    reference_vector = v_grey_2$reference_vector,
+    neighbour_vector = v_grey_2$neighbour_vector,
     nbins = nbins
   )
-  prob.H.3 <- calculateHisto(
-    reference_vector = v.H.3$reference_vector,
-    neighbour_vector = v.H.3$neighbour_vector,
+  prob_H_2 <- calculateHisto(
+    reference_vector = v_H_2$reference_vector,
+    neighbour_vector = v_H_2$neighbour_vector,
     nbins = nbins
   )
-  prob.S.3 <- calculateHisto(
-    reference_vector = v.S.3$reference_vector,
-    neighbour_vector = v.S.3$neighbour_vector, 
+  prob_S_2 <- calculateHisto(
+    reference_vector = v_S_2$reference_vector,
+    neighbour_vector = v_S_2$neighbour_vector,
     nbins = nbins
   )
-  prob.V.3 <- calculateHisto(
-    reference_vector = v.V.3$reference_vector,
-    neighbour_vector = v.V.3$neighbour_vector,
+  prob_V_2 <- calculateHisto(
+    reference_vector = v_V_2$reference_vector,
+    neighbour_vector = v_V_2$neighbour_vector,
+    nbins = nbins
+  )
+  
+  prob_grey_3 <- calculateHisto(
+    reference_vector = v_grey_3$reference_vector,
+    neighbour_vector = v_grey_3$neighbour_vector,
+    nbins = nbins
+  )
+  prob_H_3 <- calculateHisto(
+    reference_vector = v_H_3$reference_vector,
+    neighbour_vector = v_H_3$neighbour_vector,
+    nbins = nbins
+  )
+  prob_S_3 <- calculateHisto(
+    reference_vector = v_S_3$reference_vector,
+    neighbour_vector = v_S_3$neighbour_vector, 
+    nbins = nbins
+  )
+  prob_V_3 <- calculateHisto(
+    reference_vector = v_V_3$reference_vector,
+    neighbour_vector = v_V_3$neighbour_vector,
     nbins = nbins
   )
   
@@ -175,19 +175,19 @@ should, based on strong hypotheses, decide _a priori_ which color channels to us
   #############################################################################
   
   # Calculate the green index
-  sum(getValues(r.green)) / length(getValues(r.green))
+  sum(getValues(r_green)) / length(getValues(r_green))
   
   # Calculate mean information gain
-  meanInformationGain(prob.grey.2)
-  meanInformationGain(prob.H.2)
-  meanInformationGain(prob.S.2)
-  meanInformationGain(prob.V.2)
+  meanInformationGain(prob_grey_2)
+  meanInformationGain(prob_H_2)
+  meanInformationGain(prob_S_2)
+  meanInformationGain(prob_V_2)
   
   # Calculate anisotropy
-  meanInformationGain(prob.grey.1) / meanInformationGain(prob.grey.3)
-  meanInformationGain(prob.H.1) / meanInformationGain(prob.H.3)
-  meanInformationGain(prob.S.1) / meanInformationGain(prob.S.3)
-  meanInformationGain(prob.V.1) / meanInformationGain(prob.V.3)
+  meanInformationGain(prob_grey_1) / meanInformationGain(prob_grey_3)
+  meanInformationGain(prob_H_1) / meanInformationGain(prob_H_3)
+  meanInformationGain(prob_S_1) / meanInformationGain(prob_S_3)
+  meanInformationGain(prob_V_1) / meanInformationGain(prob_V_3)
 ```
 
 ```
@@ -301,25 +301,28 @@ After your first run, you will need to erase "results.csv" if you wish to reanal
   library(EXIFr)
   library(LAI)
   
-  images.folder <- "TestImages/0" # This is the path to the folder containing images to analyze
-  results.file <- "results.csv" # This is where the results will be written
+  # This is the path to the folder containing images to analyze
+  images_folder <- "TestImages/0"
+  
+  # This is where the results will be written
+  results_file <- "results.csv"
   
   # This code checks to see if the loop needs to resume or start from scratch
-  if (file.exists(results.file)) {
-    existing <- read.csv(results.file)
+  if (file.exists(results_file)) {
+    existing <- read.csv(results_file)
   	start <- max(existing$i) + 1
   } else {
   	start <- 1
   }
   
-  files <- dir(images.folder)
-  nb.photos <- length(files)
+  files <- dir(images_folder)
+  nb_photos <- length(files)
   
-  if (start <= nb.photos) {
+  if (start <= nb_photos) {
   
-    for (i in start:nb.photos) {
-    	file.to.analyze <- files[[i]]
-    	path <- paste(images.folder,file.to.analyze,sep = "/")
+    for (i in start:nb_photos) {
+    	file_to_analyze <- files[[i]]
+    	path <- paste(images_folder,file_to_analyze,sep = "/")
       
     	B <- raster(path, band = 3)
       
@@ -329,11 +332,11 @@ After your first run, you will need to erase "results.csv" if you wish to reanal
     	write.table(
     		data.frame(
     			i = i,
-    			ID = file.to.analyze,
+    			ID = file_to_analyze,
     			GF = gap_fraction(binary_image),
     			ExposureTime = read_exif_tags(path)[["ExposureTime"]]
     		),
-    		file = results.file,
+    		file = results_file,
     		append = i != 1,
     		col.names = i == 1,
     		row.names = FALSE,
@@ -343,7 +346,7 @@ After your first run, you will need to erase "results.csv" if you wish to reanal
   }
   
   # Peek at the results
-  cat(readLines(results.file), sep = "\n")
+  cat(readLines(results_file), sep = "\n")
 ```
 
 ```
