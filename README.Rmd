@@ -61,7 +61,7 @@ Note : this code calculates MIG on multiple channels only as an example of how t
 The resulting measures will be highly correlated. In order to avoid spurious results, one
 should, based on strong hypotheses, decide _a priori_ which color channels to use.
 
-```{r message = FALSE, results='hold', comment=''}
+```{r message = FALSE, results='hold', comment='', cache = TRUE}
 
   library(raster)
   library(imagemetrics)
@@ -219,7 +219,7 @@ In order to do these calculations, the image is first cropped around the 57.5° 
 ###3.2 Code example
 
 N.B. This code assumes a couple of things about the lens and picture properties which need to be properly checked before running your own analysis (i.e. Camera FOV = 73.7° and focal angle = 45°)
-```{r comment=''}
+```{r comment='', cache = TRUE}
   library(LAI)
   path <- "TestImages/45/IMG_5428.jpg" 
   LAI_from_gf_at_57(path)
@@ -233,7 +233,7 @@ N.B. This code assumes a couple of things about the lens and picture properties 
 Using Rosin's (2001) binary thresholding algorithm, one can also simply extract the ratio of sky pixels divided by the total number of pixels, thus obtaining the canopy opening.
 
 ###4.2 Code example
-```{r comment=''}
+```{r comment='', cache = TRUE}
   library(LAI)
   path <- "TestImages/90/IMG_7822.JPG" 
   
@@ -252,7 +252,7 @@ Using information from the EXIF header, one can add aditional insights into the 
 If all but one of the camera settings were fixed during the experiments (e.g. fixing ISO, aperture and focal length but allowing exposure time to vary) while using automatic exposure modes, one can directly interpret variations in that "free" setting as changes in light conditions.
 
 ###5.2 Code example
-```{r results = 'hold', comment=''}
+```{r results = 'hold', comment='', cache = TRUE}
   library(EXIFr)
   image1 <- "TestImages/90/IMG_0009.JPG" 
   image2 <- "TestImages/90/IMG_7822.JPG" 
@@ -277,7 +277,7 @@ Image analysis can be a lengthy process that runs for many hours (and even days)
 Here, we introduce a way to code analysis loops that can be stopped and resumed at any time.
 After your first run, you will need to erase "results.csv" if you wish to reanalyse the first images.
 
-```{r comment=''}
+```{r comment='', cache = TRUE}
   library(EXIFr)
   library(LAI)
   
