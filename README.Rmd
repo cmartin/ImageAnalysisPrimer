@@ -31,6 +31,8 @@ N.B. If you have the necessary tools to install packages that use Rcpp code, you
   argument and use the much faster calculateHistoCPP function.
   
 ##2. Pictures taken parallel to the ground
+<img src="TestImages/0/IMG_5401.jpg" style="width: 75%;" />
+
 ###2.1. Mean Information Gain (MIG)
 
 MIG is a measure of texture, based information theory, proposed by Proulx and Parrott (2008). MIG represents the amount of spatial randomness in the patterns of an image channel. This heterogeneity measure is usually calculated with a single diagonal neighbor for each cell.
@@ -202,6 +204,7 @@ should, based on strong hypotheses, decide _a priori_ which color channels to us
 ```
 
 ##3. Pictures taken at an angle
+<img src="TestImages/45/IMG_5428.jpg" style="width: 75%;" />
 
 ###3.1 Leaf Area Index (LAI)
 
@@ -223,6 +226,7 @@ N.B. This code assumes a couple of things about the lens and picture properties 
 ```
 
 ##4. Canopy images
+<img src="TestImages/90/IMG_7822.JPG" style="width: 75%;" />
 
 ###4.1 Gap fraction (canopy opening)
 
